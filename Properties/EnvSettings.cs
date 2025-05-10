@@ -10,7 +10,5 @@ namespace Notes.Server.Properties
         public static string? JwtAudience => Environment.GetEnvironmentVariable("JWT_AUDIENCE");
         public static string? JwtExpireTime => Environment.GetEnvironmentVariable("JWT_EXPIRE_TIME");
         public static string? JwtRefreshExpireTime => Environment.GetEnvironmentVariable("JWT_REFRESH_EXPIRE_TIME");
-        public static string? JwtRefreshTokenExpireTime => Environment.GetEnvironmentVariable("JWT_REFRESH_TOKEN_EXPIRE_TIME");
-
     }
 }
