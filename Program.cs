@@ -13,16 +13,18 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddControllers();
 builder.Services.AddAuthentication();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
-if(builder.Environment.IsDevelopment())
-{
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-}
+
 
 builder.Services
     .AddCorpsConfigurations()
-    .AddRateLimitConfiguration();
+    .AddRateLimitConfiguration()
+    .AddMediatRConfiguration()
+    .AddDipencyInjectionConfiguration();
 
 builder.Services.AddDbContext<AppDbContext>(option =>
     option.UseNpgsql(EnvSettings.ConnectionString));
@@ -35,7 +37,6 @@ using(var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
-
 app.UseCors("Corps");
 app.UseRouting();
 app.UseHttpsRedirection();
@@ -43,11 +44,10 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseRateLimiter();
 
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 app.UseStaticFilesConfigure();
 
 

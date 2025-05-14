@@ -12,7 +12,7 @@ namespace Notes.Server.Infrastracture.Persistance.Configuration
 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).IsRequired().HasMaxLength(50);
-            builder.Property(c => c.Email).IsRequired().HasMaxLength(100);
+            builder.Property(c => c.Email).IsRequired();
             builder.Property(c => c.Age).IsRequired();
             builder.Property(c => c.CreatedAt).IsRequired();
             builder.Property(c => c.LastLogin).IsRequired();

@@ -1,8 +1,8 @@
 ﻿namespace Notes.Server.Core.Configuration
 {
-    static internal class CorpsConfiguration
+    internal static class CorpsConfiguration
     {
-        static internal IServiceCollection AddCorpsConfigurations(this IServiceCollection services)
+        internal static IServiceCollection AddCorpsConfigurations(this IServiceCollection services)
         {
             services.AddCors(services =>
             {

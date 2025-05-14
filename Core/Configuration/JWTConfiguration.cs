@@ -40,8 +40,8 @@ namespace Notes.Server.Core.Configuration
                 options.JwtSecret = EnvSettings.JwtSecret;
                 options.JwtIssuer = EnvSettings.JwtIssuer;
                 options.JwtAudience = EnvSettings.JwtAudience;
-                options.JwtExpireTime = EnvSettings.JwtExpireTime;
-                options.JwtRefreshExpireTime = EnvSettings.JwtRefreshExpireTime;
+                options.JwtExpireTime = EnvSettings.JwtExpireMinute;
+                options.JwtRefreshExpireTime = EnvSettings.JwtRefreshExpireDays;
             });
 
             return services;

@@ -2,9 +2,9 @@
 
 namespace Notes.Server.Core.Configuration
 {
-    public static class UseStaticFilesConfiguration
+    internal static class UseStaticFilesConfiguration
     {
-        public static void UseStaticFilesConfigure(this WebApplication app)
+        internal static void UseStaticFilesConfigure(this WebApplication app)
         {
             string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
             if (!Directory.Exists(wwwrootPath)) Directory.CreateDirectory(wwwrootPath);
