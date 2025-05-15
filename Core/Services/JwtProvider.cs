@@ -43,8 +43,19 @@ namespace Notes.Server.Core.Services
             };
 
             context.Response.Cookies.Append("jwt", token, cookieOptions);
+        }
 
-
+        public void RemoveJwtTokenInCookie(HttpContext context)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Path = "/",
+                Expires = DateTime.UtcNow.AddDays(-1)
+            };
+            context.Response.Cookies.Delete("jwt", cookieOptions);
         }
     }
 }

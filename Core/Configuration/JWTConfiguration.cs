@@ -9,14 +9,18 @@ namespace Notes.Server.Core.Configuration
     {
         internal static IServiceCollection AddJwtConfiguration(this IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
                 .AddJwtBearer(option =>
                 {
                     option.Events = new JwtBearerEvents
                     {
                         OnMessageReceived = context =>
                         {
-                            var token = context.HttpContext.Request.Cookies["access_token"];
+                            var token = context.HttpContext.Request.Cookies["jwt"];
                             if (!string.IsNullOrEmpty(token))
                                 context.Token = token;
                             return Task.CompletedTask;
@@ -43,6 +47,8 @@ namespace Notes.Server.Core.Configuration
                 options.JwtExpireTime = EnvSettings.JwtExpireMinute;
                 options.JwtRefreshExpireTime = EnvSettings.JwtRefreshExpireDays;
             });
+
+            services.AddAuthorization();
 
             return services;
         }

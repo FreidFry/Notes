@@ -8,11 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 DotEnv.Load(options: new DotEnvOptions(envFilePaths: ["Settings.env"]));
 
-Console.WriteLine("ENV: " + EnvSettings.ConnectionString);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddControllers();
-builder.Services.AddAuthentication();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 
@@ -24,7 +22,8 @@ builder.Services
     .AddCorpsConfigurations()
     .AddRateLimitConfiguration()
     .AddMediatRConfiguration()
-    .AddDipencyInjectionConfiguration();
+    .AddDipencyInjectionConfiguration()
+    .AddJwtConfiguration();
 
 builder.Services.AddDbContext<AppDbContext>(option =>
     option.UseNpgsql(EnvSettings.ConnectionString));
@@ -40,6 +39,7 @@ using(var scope = app.Services.CreateScope())
 app.UseCors("Corps");
 app.UseRouting();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.UseRateLimiter();

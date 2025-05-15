@@ -6,5 +6,6 @@ namespace Notes.Server.Core.Interfaces
     {
         string GenerateToken(Client client);
         void SetJwtTokenInCookie(HttpContext context, Client client);
+        void RemoveJwtTokenInCookie(HttpContext context);
     }
 }

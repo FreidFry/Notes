@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Notes.Server.Core.Interfaces;
 using Notes.Server.Features.Auth.Init.DTOs;
+using System.Security.Claims;
 
 namespace Notes.Server.Features.Auth.Init.Services
 {
@@ -17,17 +18,12 @@ namespace Notes.Server.Features.Auth.Init.Services
 
         public Task<InitResponseDTO> Handle(InitRequest request, CancellationToken cancellationToken)
         {
-            if(_HttpHepler.IsAuthenticated(_contextAccessor.HttpContext))
-            {
-                return Task.FromResult(new InitResponseDTO
-                {
-                    ClientId = _HttpHepler.GetUserId(_contextAccessor.HttpContext)
-                });
-            }
+            var user = _contextAccessor.HttpContext?.User;
+            var userId = user?.FindFirstValue("user_id");
 
             return Task.FromResult(new InitResponseDTO
             {
-                ClientId = null
+                ClientId = string.IsNullOrEmpty(userId) ? null : Guid.Parse(userId)
             });
         }
     }

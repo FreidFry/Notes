@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using Notes.Server.Core.Interfaces;
 using Notes.Server.Core.Services;
+using Notes.Server.Features.Auth.Login.Services;
+using Notes.Server.Features.Auth.Login.Validations;
 using Notes.Server.Features.Auth.Registration.Services;
 using Notes.Server.Features.Auth.Registration.Validations;
 
@@ -15,6 +17,7 @@ namespace Notes.Server.Core.Configuration
             services.AddScoped<IHttpContextHelper, HttpContextHelper>();
 
             services.AddScoped<IValidator<RegistrationRequest>, RegistrationValidator>();
+            services.AddScoped<IValidator<LoginRequest>, LoginValidator>();
 
 
             return services;
