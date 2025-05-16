@@ -14,9 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 
+if (builder.Environment.IsDevelopment())
+{
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-
+}
 
 builder.Services
     .AddCorpsConfigurations()
@@ -41,13 +43,21 @@ app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
 app.UseRateLimiter();
 
-
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
 
+    app.MapGet("/", context =>
+    {
+        context.Response.Redirect("/swagger");
+        return Task.CompletedTask;
+    });
+}
+
+app.MapControllers();
 app.UseStaticFilesConfigure();
 
 

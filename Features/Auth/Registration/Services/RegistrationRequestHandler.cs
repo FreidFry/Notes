@@ -43,7 +43,7 @@ namespace Notes.Server.Features.Auth.Registration.Services
 
             _jwtProvider.SetJwtTokenInCookie(_contextAccessor.HttpContext, client);
 
-            return new OkObjectResult(client.Id);
+            return new OkObjectResult(new AuthResponceDTO { id = client.Id });
         }
     }
 }

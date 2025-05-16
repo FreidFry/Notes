@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Notes.Server.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Notes.Server.Infrastracture.Persistance.DbContexts;
+using Notes.Server.Infrastracture.Persistance.Models;
 
 namespace Notes.Server.Features.Auth.Login.Services
 {
@@ -39,7 +40,7 @@ namespace Notes.Server.Features.Auth.Login.Services
 
             _jwtProvider.SetJwtTokenInCookie(_httpContextAccessor.HttpContext, user);
 
-            return new OkObjectResult(user.Id);
+            return new OkObjectResult(new AuthResponceDTO { id = user.Id });
         }
     }
 }
